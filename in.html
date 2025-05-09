@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>آزمون تاریخی</title>
+  <link rel="stylesheet" href="test.css" />
+</head>
+<body>
+  <h1>جواب صحیح را انتخاب کنید</h1>
+
+  <div id="quiz-section">
+    <div id="selected-question"></div>
+    <div id="answer-buttons" class="btn-container"></div>
+    <div id="result"></div>
+    <button id="next-button" style="display: none;">سوال بعدی</button>
+  </div>
+
+  <div id="completion-message">
+    <h2>🎉 تبریک! شما به همه سوالات جواب دادید!</h2>
+    <p id="stats"></p>
+    <button onclick="restartQuiz()">شروع مجدد</button>
+  </div>
+
+  <script>
+    const questions = [
+      "Creation Stories",
+      "Origin Theories of Canada",
+      "First Contact",
+      "Doctrine of Discovery",
+      "Terra Nullius",
+      "Opposing Euro and Indigenous Worldviews",
+      "Importance of Identity",
+      "Worldview impact on perspective",
+      "Metis identity",
+      "Aboriginal rights"
+    ];
+
+    const correctAnswers = {
+      "Creation Stories": "داستان‌های آفرینش",
+      "Origin Theories of Canada": "نظریه‌های منشأ کانادا",
+      "First Contact": "اولین تماس",
+      "Doctrine of Discovery": "دکترین کشف",
+      "Terra Nullius": "زمین بی‌طرف",
+      "Opposing Euro and Indigenous Worldviews": "مخالفت جهان‌بینی‌های اروپایی و بومیان",
+      "Importance of Identity": "اهمیت هویت",
+      "Worldview impact on perspective": "تأثیر جهان‌بینی بر دیدگاه",
+      "Metis identity": "هویت متیس‌ها",
+      "Aboriginal rights": "حقوق بومیان"
+    };
+
+    const fakeAnswers = [
+      "امضای قراردادها",
+      "قوانین اروپایی",
+      "فرمان سلطنتی",
+      "تأسیس شهرها",
+      "مهاجرت ملت‌ها",
+      "درگیری نظامی",
+      "سنت‌های فولکلور",
+      "حقوق امپراتوری",
+      "اسناد تاریخی",
+      "فتح سرزمین‌ها"
+    ];
+
+    const selectedQuestionEl = document.getElementById("selected-question");
+    const answerButtons = document.getElementById("answer-buttons");
+    const resultEl = document.getElementById("result");
+    const nextButton = document.getElementById("next-button");
+    const completionMessage = document.getElementById("completion-message");
+    const stats = document.getElementById("stats");
+    const quizSection = document.getElementById("quiz-section");
+
+    let remainingQuestions = [];
+    let currentQuestion = "";
+    let correctCount = 0;
+    let wrongCount = 0;
+
+    function shuffle(array) {
+      return array.sort(() => Math.random() - 0.5);
+    }
+
+    function getRandomAnswers(correct) {
+      const wrong = fakeAnswers
+        .filter(f => f !== correct)
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 2);
+      return shuffle([correct, ...wrong]);
+    }
+
+    function showNextQuestion() {
+      resultEl.textContent = "";
+      nextButton.style.display = "none";
+      answerButtons.innerHTML = "";
+
+      if (remainingQuestions.length === 0) {
+        showCompletion();
+        return;
+      }
+
+      currentQuestion = remainingQuestions.splice(Math.floor(Math.random() * remainingQuestions.length), 1)[0];
+      selectedQuestionEl.textContent = currentQuestion;
+
+      const correct = correctAnswers[currentQuestion];
+      const options = getRandomAnswers(correct);
+
+      options.forEach(answer => {
+        const btn = document.createElement("button");
+        btn.textContent = answer;
+        btn.classList.add("answer-btn");
+        btn.onclick = () => checkAnswer(answer, correct, btn);
+        answerButtons.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(selected, correct, button) {
+      const allButtons = document.querySelectorAll(".answer-btn");
+      allButtons.forEach(btn => btn.disabled = true);
+
+      if (selected === correct) {
+        button.classList.add("correct");
+        resultEl.textContent = "✅ صحیح!";
+        correctCount++;
+      } else {
+        button.classList.add("wrong");
+        resultEl.textContent = `❌ نادرست. جواب صحیح: ${correct}`;
+        wrongCount++;
+      }
+
+      nextButton.style.display = "inline-block";
+    }
+
+    nextButton.addEventListener("click", showNextQuestion);
+
+    function showCompletion() {
+      quizSection.style.display = "none";
+      completionMessage.style.display = "block";
+      stats.textContent = `صحیح: ${correctCount}, نادرست: ${wrongCount}`;
+    }
+
+    function restartQuiz() {
+      remainingQuestions = [...questions];
+      correctCount = 0;
+      wrongCount = 0;
+      completionMessage.style.display = "none";
+      quizSection.style.display = "flex";
+      showNextQuestion();
+    }
+
+    // شروع
+    restartQuiz();
+  </script>
+</body>
+</html>
