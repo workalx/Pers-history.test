@@ -1,65 +1,94 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>آزمون تاریخی</title>
-  <link rel="stylesheet" href="test.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>تست تاریخی</title>
+<link rel="stylesheet" href="test.css" />
 </head>
 <body>
-  <h1>جواب صحیح را انتخاب کنید</h1>
+<h1>گزینه صحیح را انتخاب کنید</h1>
 
-  <div id="quiz-section">
+<div id="quiz-section">
     <div id="selected-question"></div>
     <div id="answer-buttons" class="btn-container"></div>
     <div id="result"></div>
-    <button id="next-button" style="display: none;">سوال بعدی</button>
-  </div>
+    <button id="next-button" style="display: none;">سؤال بعدی</button>
+</div>
 
-  <div id="completion-message">
-    <h2>🎉 تبریک! شما به همه سوالات جواب دادید!</h2>
+<div id="completion-message">
+    <h2>🎉 تبریک! به همه سؤالات پاسخ دادید!</h2>
     <p id="stats"></p>
-    <button onclick="restartQuiz()">شروع مجدد</button>
-  </div>
+    <button onclick="restartQuiz()">شروع دوباره</button>
+</div>
 
-  <script>
+<script>
     const questions = [
-      "Creation Stories",
-      "Origin Theories of Canada",
-      "First Contact",
-      "Doctrine of Discovery",
-      "Terra Nullius",
-      "Opposing Euro and Indigenous Worldviews",
-      "Importance of Identity",
-      "Worldview impact on perspective",
-      "Metis identity",
-      "Aboriginal rights"
+        "Creation Stories",
+        "Origin Theories of Canada",
+        "First Contact",
+        "Doctrine of Discovery",
+        "Terra Nullius",
+        "Opposing Euro and Indigenous Worldviews",
+        "Importance of Identity",
+        "Wampum Belts",
+        "Worldview impact on perspective",
+        "Metis identity",
+        "Aboriginal rights",
+        "Sitting Bull",
+        "Pile of Bones",
+        "English and French relationship with Indigenous peoples after contact",
+        "Royal Proclamation",
+        "Confederation",
+        "Constitution Act",
+        "Section 35 of the Constitution",
+        "Comprehensive and Specific Land Claims",
+        "Northwest Passage conflict",
+        "Oka Crisis",
+        "Treaty of Paris and the Seven Year War",
+        "Numbered Treaties",
+        "Treaty Rights"
     ];
 
     const correctAnswers = {
-      "Creation Stories": "داستان‌های آفرینش",
-      "Origin Theories of Canada": "نظریه‌های منشأ کانادا",
-      "First Contact": "اولین تماس",
-      "Doctrine of Discovery": "دکترین کشف",
-      "Terra Nullius": "زمین بی‌طرف",
-      "Opposing Euro and Indigenous Worldviews": "مخالفت جهان‌بینی‌های اروپایی و بومیان",
-      "Importance of Identity": "اهمیت هویت",
-      "Worldview impact on perspective": "تأثیر جهان‌بینی بر دیدگاه",
-      "Metis identity": "هویت متیس‌ها",
-      "Aboriginal rights": "حقوق بومیان"
+        "Creation Stories": "داستان‌های آفرینش",
+        "Origin Theories of Canada": "نظریه‌های منشأ کانادا",
+        "First Contact": "اولین تماس",
+        "Doctrine of Discovery": "اصل اکتشاف",
+        "Terra Nullius": "سرزمین بی‌صاحب",
+        "Opposing Euro and Indigenous Worldviews": "تفاوت دیدگاه‌های اروپایی و بومی",
+        "Importance of Identity": "اهمیت هویت",
+        "Worldview impact on perspective": "تأثیر دیدگاه بر درک",
+        "Metis identity": "هویت متیس",
+        "Aboriginal rights": "حقوق بومیان",
+        "Sitting Bull": "رهبر و راهنمای معنوی",
+        "Pile of Bones": "محلی برای بقایای استخوان‌ها",
+        "English and French relationship with Indigenous peoples after contact": "روابط انگلیسی‌ها و فرانسوی‌ها با بومیان پس از تماس",
+        "Royal Proclamation" : "اعلامیه سلطنتی برای تنظیم قلمروها",
+        "Confederation" : "اتحاد استان‌ها برای تشکیل کشور",
+        "Constitution Act": "قانون اساسی تشکیل کانادا",
+        "Section 35 of the Constitution": "بخش ۳۵ قانون اساسی",
+        "Comprehensive and Specific Land Claims": "ادعاهای کلی و خاص زمین",
+        "Northwest Passage conflict": "درگیری بر سر گذرگاه شمال‌غربی",
+        "Oka Crisis": "بحران اوکا بین بومیان و دولت کانادا",
+        "Treaty of Paris and the Seven Year War": "پیمان پاریس و جنگ هفت‌ساله",
+        "Numbered Treaties": "یازده پیمان بین بومیان و دولت کانادا",
+        "Treaty Rights": "حقوق قراردادی",
+        "Wampum Belts": "کمربندهای مرواریدی"
     };
 
     const fakeAnswers = [
-      "امضای قراردادها",
-      "قوانین اروپایی",
-      "فرمان سلطنتی",
-      "تأسیس شهرها",
-      "مهاجرت ملت‌ها",
-      "درگیری نظامی",
-      "سنت‌های فولکلور",
-      "حقوق امپراتوری",
-      "اسناد تاریخی",
-      "فتح سرزمین‌ها"
+        "امضای پیمان‌ها",
+        "قوانین اروپایی",
+        "اعلامیه سلطنتی",
+        "تأسیس شهرها",
+        "جابجایی اقوام",
+        "درگیری نظامی",
+        "سنت‌های فولکلور",
+        "قانون امپراتوری",
+        "اسناد تاریخی",
+        "تسخیر سرزمین‌ها",
+        "بحران اوکا بین بومیان و دولت کانادا"
     ];
 
     const selectedQuestionEl = document.getElementById("selected-question");
@@ -76,78 +105,78 @@
     let wrongCount = 0;
 
     function shuffle(array) {
-      return array.sort(() => Math.random() - 0.5);
+        return array.sort(() => Math.random() - 0.5);
     }
 
     function getRandomAnswers(correct) {
-      const wrong = fakeAnswers
-        .filter(f => f !== correct)
-        .sort(() => 0.5 - Math.random())
-        .slice(0, 2);
-      return shuffle([correct, ...wrong]);
+        const wrong = fakeAnswers
+            .filter(f => f !== correct)
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 2);
+        return shuffle([correct, ...wrong]);
     }
 
     function showNextQuestion() {
-      resultEl.textContent = "";
-      nextButton.style.display = "none";
-      answerButtons.innerHTML = "";
+        resultEl.textContent = "";
+        nextButton.style.display = "none";
+        answerButtons.innerHTML = "";
 
-      if (remainingQuestions.length === 0) {
-        showCompletion();
-        return;
-      }
+        if (remainingQuestions.length === 0) {
+            showCompletion();
+            return;
+        }
 
-      currentQuestion = remainingQuestions.splice(Math.floor(Math.random() * remainingQuestions.length), 1)[0];
-      selectedQuestionEl.textContent = currentQuestion;
+        currentQuestion = remainingQuestions.splice(Math.floor(Math.random() * remainingQuestions.length), 1)[0];
+        selectedQuestionEl.textContent = currentQuestion;
 
-      const correct = correctAnswers[currentQuestion];
-      const options = getRandomAnswers(correct);
+        const correct = correctAnswers[currentQuestion];
+        const options = getRandomAnswers(correct);
 
-      options.forEach(answer => {
-        const btn = document.createElement("button");
-        btn.textContent = answer;
-        btn.classList.add("answer-btn");
-        btn.onclick = () => checkAnswer(answer, correct, btn);
-        answerButtons.appendChild(btn);
-      });
+        options.forEach(answer => {
+            const btn = document.createElement("button");
+            btn.textContent = answer;
+            btn.classList.add("answer-btn");
+            btn.onclick = () => checkAnswer(answer, correct, btn);
+            answerButtons.appendChild(btn);
+        });
     }
 
     function checkAnswer(selected, correct, button) {
-      const allButtons = document.querySelectorAll(".answer-btn");
-      allButtons.forEach(btn => btn.disabled = true);
+        const allButtons = document.querySelectorAll(".answer-btn");
+        allButtons.forEach(btn => btn.disabled = true);
 
-      if (selected === correct) {
-        button.classList.add("correct");
-        resultEl.textContent = "✅ صحیح!";
-        correctCount++;
-      } else {
-        button.classList.add("wrong");
-        resultEl.textContent = `❌ نادرست. جواب صحیح: ${correct}`;
-        wrongCount++;
-      }
+        if (selected === correct) {
+            button.classList.add("correct");
+            resultEl.textContent = "✅ درست!";
+            correctCount++;
+        } else {
+            button.classList.add("wrong");
+            resultEl.textContent = `❌ نادرست. پاسخ درست: ${correct}`;
+            wrongCount++;
+        }
 
-      nextButton.style.display = "inline-block";
+        nextButton.style.display = "inline-block";
     }
 
     nextButton.addEventListener("click", showNextQuestion);
 
     function showCompletion() {
-      quizSection.style.display = "none";
-      completionMessage.style.display = "block";
-      stats.textContent = `صحیح: ${correctCount}, نادرست: ${wrongCount}`;
+        quizSection.style.display = "none";
+        completionMessage.style.display = "block";
+        stats.textContent = `درست: ${correctCount}، نادرست: ${wrongCount}`;
     }
 
     function restartQuiz() {
-      remainingQuestions = [...questions];
-      correctCount = 0;
-      wrongCount = 0;
-      completionMessage.style.display = "none";
-      quizSection.style.display = "flex";
-      showNextQuestion();
+        remainingQuestions = [...questions];
+        correctCount = 0;
+        wrongCount = 0;
+        completionMessage.style.display = "none";
+        quizSection.style.display = "flex";
+        showNextQuestion();
     }
 
-    // شروع
+    // Start
     restartQuiz();
-  </script>
+</script>
 </body>
 </html>
